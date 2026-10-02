@@ -3,65 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Benjamin - Contact</title>
-  <style>
-    body {
-      max-width: 760px;
-      margin: 48px auto;
-      padding: 0 24px;
-      font-family: "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
-      line-height: 1.75;
-      font-size: 18px;
-      color: #1f1f1f;
-      background: #fdfdfb;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px 20px;
-      margin-bottom: 36px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #cfcfcf;
-    }
-    nav a {
-      text-decoration: none;
-      color: #1f1f1f;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      font-size: 0.9em;
-      letter-spacing: 0.04em;
-      font-variant: small-caps;
-    }
-    nav a:hover { text-decoration: underline; }
-    nav a.active { font-weight: 600; }
-    h1, h2 { font-weight: 600; letter-spacing: 0.01em; }
-    a { color: #2b4a6b; }
-    a:hover { color: #1e3650; }
-    hr { border: none; border-top: 1px solid #d9d9d9; margin: 32px 0 16px; }
-    @media (max-width: 600px) {
-      body { margin: 28px auto; padding: 0 18px; font-size: 17px; }
-      nav { gap: 12px 16px; }
-    }
-  </style>
+  <title>Benjamin — Contact</title>
+  <meta name="description" content="Get in touch with Benjamin: email, GitHub, LinkedIn." />
+  <meta name="theme-color" content="#050507" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>(function(d){var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.documentElement.className='js'+(r?' rm':' intro');})(document);</script>
+  <script src="assets/js/st-shader.js" defer></script>
+  <script src="assets/js/st-raster.js" defer></script>
+  <script src="assets/js/st-engine.js" defer></script>
+  <script src="assets/js/st-hud.js" defer></script>
+  <script src="assets/js/st-main.js" defer></script>
 </head>
 <body>
-  <nav>
-    <a href="index.html">home</a>
-    <a href="about.html">about</a>
-    <a href="projects.html">projects</a>
-    <a href="contact.html" class="active">contact</a>
-  </nav>
+  <a class="skip" href="#main">Skip to content</a>
+  <canvas id="spacetime" aria-hidden="true"></canvas>
 
-  <h1>Contact</h1>
+  <header class="hud-top">
+    <a class="brand" href="index.html" aria-label="Benjamin, home"><span class="brand-mark" aria-hidden="true"></span><span>Benjamin</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html"><span class="nav-idx">00</span><span class="nav-label">home</span></a>
+      <a href="about.html"><span class="nav-idx">01</span><span class="nav-label">about</span></a>
+      <a href="projects.html"><span class="nav-idx">02</span><span class="nav-label">projects</span></a>
+      <a href="contact.html" aria-current="page"><span class="nav-idx">03</span><span class="nav-label">contact</span></a>
+    </nav>
+  </header>
 
-  <p>Best ways to reach me:</p>
+  <main id="main" class="page page-contact" data-idx="03" data-name="contact">
+    <p class="eyebrow"><span class="ev">Event 03</span><span>Transmission</span></p>
+    <h1 class="display" tabindex="-1">Contact</h1>
+    <p class="c-intro">Best ways to reach me:</p>
 
-  <p>
-    Email: <a href="mailto:benjamin.jsauve@gmail.com">benjamin.jsauve@gmail.com</a><br>
-    GitHub: <a href="https://github.com/BJSventures">github.com/BJSventures</a><br>
-    LinkedIn: <a href="https://www.linkedin.com/in/benjamin-sauv%C3%A9-8a37502b9/">linkedin.com/in/benjamin-sauv%C3%A9-8a37502b9/</a>
-  </p>
+    <ul class="channels">
+      <li>
+        <a href="mailto:benjamin.jsauve@gmail.com">
+          <span class="ch-k">Email</span>
+          <span class="ch-v">benjamin.jsauve@gmail.com</span>
+          <span class="ch-go" aria-hidden="true">↗</span>
+        </a>
+        <button class="copy" type="button" data-copy="benjamin.jsauve@gmail.com">copy</button>
+      </li>
+      <li>
+        <a href="https://github.com/benjamin-jsauve">
+          <span class="ch-k">GitHub</span>
+          <span class="ch-v">github.com/benjamin-jsauve</span>
+          <span class="ch-go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/benjamin-sauv%C3%A9-8a37502b9/">
+          <span class="ch-k">LinkedIn</span>
+          <span class="ch-v">linkedin.com/in/benjamin-sauvé</span>
+          <span class="ch-go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+    </ul>
 
-  <hr>
-  <p style="font-family: monospace; font-size: 0.8em; color: #888;">&copy; 2025 Benjamin</p>
+    <p class="c-note">Signals propagate at c. Replies take slightly longer.</p>
+  </main>
+
+  <footer class="hud-bottom">
+    <div class="hud-col">
+      <span class="hud-coords"><span class="hud-k">x</span><b data-hud="x">0.000</b>&nbsp;&nbsp;<span class="hud-k">y</span><b data-hud="y">0.000</b></span>
+      <span><span class="hud-k m">τ − t</span><b class="m" data-hud="dil">0.000 s</b></span>
+    </div>
+    <div class="hud-col right">
+      <span class="hud-clock"><span class="hud-k">Montréal</span><b data-hud="clock">--:--:--</b></span>
+      <span>&copy; <span data-hud="year">2026</span> Benjamin</span>
+    </div>
+  </footer>
+
+  <div class="corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+  <div class="warp-hud" aria-hidden="true">
+    <div class="wh-status" data-hud="status">Traversing</div>
+    <div class="wh-route"><span data-hud="from">00 home</span> &nbsp;⟶&nbsp; <span data-hud="to">01 about</span></div>
+    <div class="wh-metrics">v <b data-hud="v">0.00000</b>c &nbsp;·&nbsp; γ <b data-hud="g">1.000</b></div>
+  </div>
+
+  <div class="sr-only" aria-live="polite" id="announcer"></div>
 </body>
 </html>

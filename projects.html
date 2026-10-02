@@ -3,87 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Benjamin - Projects</title>
-  <style>
-    body {
-      max-width: 760px;
-      margin: 48px auto;
-      padding: 0 24px;
-      font-family: "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
-      line-height: 1.75;
-      font-size: 18px;
-      color: #1f1f1f;
-      background: #fdfdfb;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px 20px;
-      margin-bottom: 36px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #cfcfcf;
-    }
-    nav a {
-      text-decoration: none;
-      color: #1f1f1f;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      font-size: 0.9em;
-      letter-spacing: 0.04em;
-      font-variant: small-caps;
-    }
-    nav a:hover { text-decoration: underline; }
-    nav a.active { font-weight: 600; }
-    h1, h2 { font-weight: 600; letter-spacing: 0.01em; }
-    a { color: #2b4a6b; }
-    a:hover { color: #1e3650; }
-    hr { border: none; border-top: 1px solid #d9d9d9; margin: 32px 0 16px; }
-    .project { margin-bottom: 1.8em; padding-bottom: 1.6em; border-bottom: 1px solid #e2e2e2; }
-    .project:last-child { border-bottom: none; }
-    .project h2 { margin-bottom: 0.2em; }
-    .project .meta {
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      font-size: 0.8em;
-      color: #6b6b6b;
-      letter-spacing: 0.04em;
-    }
-    @media (max-width: 600px) {
-      body { margin: 28px auto; padding: 0 18px; font-size: 17px; }
-      nav { gap: 12px 16px; }
-    }
-  </style>
+  <title>Benjamin — Projects</title>
+  <meta name="description" content="Projects by Benjamin: peer-cluster residual momentum research, a multi-quantile loss for EvoTrees.jl, and this WebGL site." />
+  <meta name="theme-color" content="#050507" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>(function(d){var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.documentElement.className='js'+(r?' rm':' intro');})(document);</script>
+  <script src="assets/js/st-shader.js" defer></script>
+  <script src="assets/js/st-raster.js" defer></script>
+  <script src="assets/js/st-engine.js" defer></script>
+  <script src="assets/js/st-hud.js" defer></script>
+  <script src="assets/js/st-main.js" defer></script>
 </head>
 <body>
-  <nav>
-    <a href="index.html">home</a>
-    <a href="about.html">about</a>
-    <a href="projects.html" class="active">projects</a>
-    <a href="contact.html">contact</a>
-  </nav>
+  <a class="skip" href="#main">Skip to content</a>
+  <canvas id="spacetime" aria-hidden="true"></canvas>
 
-  <h1>Projects</h1>
+  <header class="hud-top">
+    <a class="brand" href="index.html" aria-label="Benjamin, home"><span class="brand-mark" aria-hidden="true"></span><span>Benjamin</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html"><span class="nav-idx">00</span><span class="nav-label">home</span></a>
+      <a href="about.html"><span class="nav-idx">01</span><span class="nav-label">about</span></a>
+      <a href="projects.html" aria-current="page"><span class="nav-idx">02</span><span class="nav-label">projects</span></a>
+      <a href="contact.html"><span class="nav-idx">03</span><span class="nav-label">contact</span></a>
+    </nav>
+  </header>
 
-  <div class="project">
-    <div class="meta"></div>
-    <h2></h2>
-    <p></p>
-    <a href="">github</a>
+  <main id="main" class="page page-projects" data-idx="02" data-name="projects">
+    <p class="eyebrow"><span class="ev">Event 02</span><span>Experiments</span></p>
+    <h1 class="display" tabindex="-1">Projects</h1>
+
+    <!-- To add a project, copy one <li class="project"> block below. -->
+    <ol class="projects">
+      <li class="project">
+        <div class="p-idx">P–01</div>
+        <div class="p-body">
+          <h2 class="p-title">Peer Cluster Residual Momentum</h2>
+          <p class="p-meta">Python · Quant research · Russell 1000, 2005–2024</p>
+          <p class="p-text">
+            Tests whether idiosyncratic momentum is sharper within data-driven peer groups. The
+            pipeline residualises returns on the Fama–French five factors, cleans the covariance
+            with Marchenko–Pastur, clusters stocks with Ward linkage, and trades the within-cluster
+            signal through a Gârleanu–Pedersen optimiser with transaction costs. An optional
+            random-forest meta-labeling layer learns when to size the bet up or down.
+          </p>
+          <p class="p-links">
+            <a href="https://github.com/benjamin-jsauve/peer_cluster">github ↗</a>
+            <a href="https://github.com/benjamin-jsauve/peer_cluster/blob/main/reports/beamer/research.pdf">research deck ↗</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <div class="p-idx">P–02</div>
+        <div class="p-body">
+          <h2 class="p-title">Multi-quantile loss for EvoTrees.jl</h2>
+          <p class="p-meta">Julia · Open source · Merged</p>
+          <p class="p-text">
+            Added a <code>:multiquantile</code> loss to EvoTrees.jl, a gradient-boosted trees
+            library in Julia, so a single <code>EvoTreeRegressor</code> predicts several quantiles
+            at once, on CPU and GPU.
+          </p>
+          <p class="p-links">
+            <a href="https://github.com/Evovest/EvoTrees.jl/pull/327">pull request #327 ↗</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <div class="p-idx">P–03</div>
+        <div class="p-body">
+          <h2 class="p-title">This website</h2>
+          <p class="p-meta">WebGL2 · GLSL · JavaScript</p>
+          <p class="p-text">
+            A hand-written spacetime renderer. The cursor lenses the starfield, navigating drops
+            the page into a black hole and out through a white hole, and the back button runs the
+            whole thing in reverse. No frameworks, no build step.
+          </p>
+          <p class="p-links">
+            <a href="https://github.com/benjamin-jsauve/website">source ↗</a>
+          </p>
+        </div>
+      </li>
+    </ol>
+
+    <section class="lab" aria-labelledby="lab-h">
+      <h2 class="label" id="lab-h">In the lab</h2>
+      <ul class="lab-list">
+        <li>
+          <span class="lab-state">early</span>
+          <span class="lab-name">SyTools</span>
+          <span class="lab-desc">Tools for systematic asset management.</span>
+          <a class="lab-go" href="https://github.com/benjamin-jsauve/SyTools">github ↗</a>
+        </li>
+        <li>
+          <span class="lab-state">early</span>
+          <span class="lab-name">mktscanner</span>
+          <span class="lab-desc">Market scanner.</span>
+          <a class="lab-go" href="https://github.com/benjamin-jsauve/mktscanner">github ↗</a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="hud-bottom">
+    <div class="hud-col">
+      <span class="hud-coords"><span class="hud-k">x</span><b data-hud="x">0.000</b>&nbsp;&nbsp;<span class="hud-k">y</span><b data-hud="y">0.000</b></span>
+      <span><span class="hud-k m">τ − t</span><b class="m" data-hud="dil">0.000 s</b></span>
+    </div>
+    <div class="hud-col right">
+      <span class="hud-clock"><span class="hud-k">Montréal</span><b data-hud="clock">--:--:--</b></span>
+      <span>&copy; <span data-hud="year">2026</span> Benjamin</span>
+    </div>
+  </footer>
+
+  <div class="corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+  <div class="warp-hud" aria-hidden="true">
+    <div class="wh-status" data-hud="status">Traversing</div>
+    <div class="wh-route"><span data-hud="from">00 home</span> &nbsp;⟶&nbsp; <span data-hud="to">01 about</span></div>
+    <div class="wh-metrics">v <b data-hud="v">0.00000</b>c &nbsp;·&nbsp; γ <b data-hud="g">1.000</b></div>
   </div>
 
-  <div class="project">
-    <div class="meta"></div>
-    <h2></h2>
-    <p></p>
-    <a href="">github</a>
-  </div>
-
-  <div class="project">
-    <div class="meta"></div>
-    <h2></h2>
-    <p></p>
-    <a href="">github</a>
-  </div>
-
-  <hr>
-  <p style="font-family: monospace; font-size: 0.8em; color: #888;">&copy; 2025 Benjamin</p>
+  <div class="sr-only" aria-live="polite" id="announcer"></div>
 </body>
 </html>

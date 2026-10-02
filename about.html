@@ -3,78 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Benjamin - About</title>
-  <style>
-    body {
-      max-width: 760px;
-      margin: 48px auto;
-      padding: 0 24px;
-      font-family: "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
-      line-height: 1.75;
-      font-size: 18px;
-      color: #1f1f1f;
-      background: #fdfdfb;
-    }
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px 20px;
-      margin-bottom: 36px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #cfcfcf;
-    }
-    nav a {
-      text-decoration: none;
-      color: #1f1f1f;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      font-size: 0.9em;
-      letter-spacing: 0.04em;
-      font-variant: small-caps;
-    }
-    nav a:hover { text-decoration: underline; }
-    nav a.active { font-weight: 600; }
-    h1, h2 { font-weight: 600; letter-spacing: 0.01em; }
-    a { color: #2b4a6b; }
-    a:hover { color: #1e3650; }
-    hr { border: none; border-top: 1px solid #d9d9d9; margin: 32px 0 16px; }
-    @media (max-width: 600px) {
-      body { margin: 28px auto; padding: 0 18px; font-size: 17px; }
-      nav { gap: 12px 16px; }
-    }
-  </style>
+  <title>Benjamin — About</title>
+  <meta name="description" content="About Benjamin — probability, optimization and machine learning at McGill; quantitative research and software development; formerly a professional chef." />
+  <meta name="theme-color" content="#050507" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script>(function(d){var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.documentElement.className='js'+(r?' rm':' intro');})(document);</script>
+  <script src="assets/js/st-shader.js" defer></script>
+  <script src="assets/js/st-raster.js" defer></script>
+  <script src="assets/js/st-engine.js" defer></script>
+  <script src="assets/js/st-hud.js" defer></script>
+  <script src="assets/js/st-main.js" defer></script>
 </head>
 <body>
-  <nav>
-    <a href="index.html">home</a>
-    <a href="about.html" class="active">about</a>
-    <a href="projects.html">projects</a>
-    <a href="contact.html">contact</a>
-  </nav>
+  <a class="skip" href="#main">Skip to content</a>
+  <canvas id="spacetime" aria-hidden="true"></canvas>
 
-  <h1>About</h1>
+  <header class="hud-top">
+    <a class="brand" href="index.html" aria-label="Benjamin, home"><span class="brand-mark" aria-hidden="true"></span><span>Benjamin</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html"><span class="nav-idx">00</span><span class="nav-label">home</span></a>
+      <a href="about.html" aria-current="page"><span class="nav-idx">01</span><span class="nav-label">about</span></a>
+      <a href="projects.html"><span class="nav-idx">02</span><span class="nav-label">projects</span></a>
+      <a href="contact.html"><span class="nav-idx">03</span><span class="nav-label">contact</span></a>
+    </nav>
+  </header>
 
-  <p>
-    I study Mathematics and Computer Science at McGill in the Honours stream.
-    My academic focus is at the intersection of probability, optimization, and machine learning,
-    which maps pretty naturally onto the problems I find interesting in finance.
-  </p>
+  <main id="main" class="page page-about" data-idx="01" data-name="about">
+    <p class="eyebrow"><span class="ev">Event 01</span><span>Worldline</span></p>
+    <h1 class="display" tabindex="-1">About</h1>
+    <div class="about-grid">
+      <div class="prose">
+        <p>
+          I study Mathematics and Computer Science at McGill in the Honours stream.
+          My academic focus is at the intersection of probability, optimization, and machine learning,
+          which maps pretty naturally onto the problems I find interesting in finance.
+        </p>
+        <p>
+          I spent time at my internships doing quantitative research and software development. Both gave me different angles on how research ideas
+          actually make it into production, which I think about a lot.
+        </p>
+        <p>
+          Before any of this, I worked as a professional chef in some of the better kitchens in Canada.
+        </p>
+        <p>
+          I train MMA and play hockey. I ski when I get the chance.
+          I read philosophy mostly for pleasure, Camus and Wittgenstein in particular.
+          I&rsquo;m serious about music in a way that&rsquo;s hard to explain briefly.
+        </p>
+      </div>
 
-  <p>
-    I spent time at my internships doing quantitative research and software development. Both gave me different angles on how research ideas
-    actually make it into production, which I think about a lot.
-  </p>
+      <aside class="worldline" aria-label="Worldline">
+        <h2 class="label">Worldline</h2>
+        <ol class="wl">
+          <li>
+            <span class="wl-node" aria-hidden="true"></span>
+            <span class="wl-t">t − 3</span>
+            <h3>Kitchens</h3>
+            <p>Professional chef in some of the better kitchens in Canada.</p>
+          </li>
+          <li>
+            <span class="wl-node" aria-hidden="true"></span>
+            <span class="wl-t">t − 2</span>
+            <h3>McGill</h3>
+            <p>Honours Mathematics &amp; Computer Science. Probability, optimization, machine learning.</p>
+          </li>
+          <li>
+            <span class="wl-node" aria-hidden="true"></span>
+            <span class="wl-t">t − 1</span>
+            <h3>Internships</h3>
+            <p>Quantitative research at proprietary trading firms. Software development at big asset managers.</p>
+          </li>
+          <li class="now">
+            <span class="wl-node" aria-hidden="true"></span>
+            <span class="wl-t">t = 0</span>
+            <h3>Now</h3>
+            <p>Systematic trading and signal research, with a lean toward high frequency.</p>
+          </li>
+        </ol>
 
-  <p>
-    Before any of this, I worked as a professional chef in some of the better kitchens in Canada.
-  </p>
+        <h2 class="label">Off the clock</h2>
+        <ul class="tags">
+          <li>MMA</li>
+          <li>hockey</li>
+          <li>skiing</li>
+          <li>Camus</li>
+          <li>Wittgenstein</li>
+          <li>music</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
 
-  <p>
-    I train MMA and play hockey. I ski when I get the chance.
-    I read philosophy mostly for pleasure, Camus and Wittgenstein in particular.
-    I'm serious about music in a way that's hard to explain briefly.
-  </p>
+  <footer class="hud-bottom">
+    <div class="hud-col">
+      <span class="hud-coords"><span class="hud-k">x</span><b data-hud="x">0.000</b>&nbsp;&nbsp;<span class="hud-k">y</span><b data-hud="y">0.000</b></span>
+      <span><span class="hud-k m">τ − t</span><b class="m" data-hud="dil">0.000 s</b></span>
+    </div>
+    <div class="hud-col right">
+      <span class="hud-clock"><span class="hud-k">Montréal</span><b data-hud="clock">--:--:--</b></span>
+      <span>&copy; <span data-hud="year">2026</span> Benjamin</span>
+    </div>
+  </footer>
 
-  <hr>
-  <p style="font-family: monospace; font-size: 0.8em; color: #888;">&copy; 2025 Benjamin</p>
+  <div class="corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+  <div class="warp-hud" aria-hidden="true">
+    <div class="wh-status" data-hud="status">Traversing</div>
+    <div class="wh-route"><span data-hud="from">00 home</span> &nbsp;⟶&nbsp; <span data-hud="to">01 about</span></div>
+    <div class="wh-metrics">v <b data-hud="v">0.00000</b>c &nbsp;·&nbsp; γ <b data-hud="g">1.000</b></div>
+  </div>
+
+  <div class="sr-only" aria-live="polite" id="announcer"></div>
 </body>
 </html>
