@@ -8,11 +8,12 @@
     scroll: 0,
     ripples: [],
     warp: { on: 0, T: 0, P: [0, 0], C: [0, 0], rev: 0, seed: 0, spin: 1 },
+    light: document.documentElement.getAttribute('data-theme') === 'light' ? 1 : 0,
     t0: performance.now()
   });
 
   var UNIFORMS = ['uRes', 'uScale', 'uView', 'uTime', 'uMouse', 'uMouseOn', 'uScroll', 'uRip', 'uWarp', 'uT',
-    'uP', 'uC', 'uRev', 'uSeed', 'uSpin', 'uTexA', 'uTexB', 'uHasA', 'uHasB'];
+    'uP', 'uC', 'uRev', 'uSeed', 'uSpin', 'uTexA', 'uTexB', 'uHasA', 'uHasB', 'uLight'];
 
   function Engine(canvas) {
     this.canvas = canvas;
@@ -160,6 +161,7 @@
     gl.uniform2f(u.uMouse, S.mouse.x, S.H - S.mouse.y);
     gl.uniform1f(u.uMouseOn, S.mouse.on * S.mouse.boost);
     gl.uniform1f(u.uScroll, S.scroll);
+    gl.uniform1f(u.uLight, S.light);
 
     var rip = new Float32Array(16);
     for (var i = 0; i < 4; i++) {

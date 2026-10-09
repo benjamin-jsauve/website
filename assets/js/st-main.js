@@ -248,7 +248,7 @@
       }
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var a = e.target.closest && e.target.closest('a[href]');
-      if (!a) { if (!reduced) ST.ripple(e.clientX, e.clientY, 1); return; }
+      if (!a) { if (!reduced && e.detail !== 0) ST.ripple(e.clientX, e.clientY, 1); return; }
       if ((a.target && a.target !== '_self') || a.hasAttribute('download')) return;
       if (!routeOf(a.href)) return;
       e.preventDefault();
@@ -376,5 +376,7 @@
   }
 
   ST.go = go;
+  // the loop repaints every frame; a reduced-motion page is a still and needs asking
+  ST.redraw = function () { if (gl && reduced) engine.render(performance.now()); };
   boot();
 })();

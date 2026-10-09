@@ -11,10 +11,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="assets/css/site.css" />
-  <script>(function(d){var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.documentElement.className='js'+(r?' rm':' intro');})(document);</script>
+  <script>(function(d){var e=d.documentElement,m=window.matchMedia,r=m&&matchMedia('(prefers-reduced-motion: reduce)').matches,t;try{t=localStorage.getItem('st.theme');}catch(x){}if(t!=='light'&&t!=='dark')t=m&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';e.className='js'+(r?' rm':' intro');e.setAttribute('data-theme',t);})(document);</script>
   <script src="assets/js/st-shader.js" defer></script>
   <script src="assets/js/st-raster.js" defer></script>
   <script src="assets/js/st-engine.js" defer></script>
+  <script src="assets/js/st-theme.js" defer></script>
   <script src="assets/js/st-hud.js" defer></script>
   <script src="assets/js/st-main.js" defer></script>
 </head>
@@ -30,6 +31,7 @@
       <a href="projects.html"><span class="nav-idx">02</span><span class="nav-label">projects</span></a>
       <a href="contact.html"><span class="nav-idx">03</span><span class="nav-label">contact</span></a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Light theme" aria-pressed="false" title="Light / dark"><i aria-hidden="true"></i></button>
   </header>
 
   <main id="main" class="page page-home" data-idx="00" data-name="home">

@@ -8,18 +8,40 @@
 
 :root {
   --bg: #050507;
+  --bg-rgb: 5, 5, 7;
   --ink: #f1efe9;
+  --ink-rgb: 241, 239, 233;
   --ink-2: #b8b6af;
   --ink-3: #7a7872;
-  --line: rgba(241, 239, 233, 0.14);
-  --line-2: rgba(241, 239, 233, 0.28);
+  --line: rgba(var(--ink-rgb), 0.14);
+  --line-2: rgba(var(--ink-rgb), 0.28);
   --hot: #ffb27a;
   --cold: #9fc4ff;
+  --select: rgba(255, 178, 122, .32);
+  --select-ink: #fff;
+  --scrollbar: #2a2a31;
   --pad: clamp(16px, 4.2vw, 56px);
   --serif: "Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   color-scheme: dark;
+}
+
+/* Light theme: the same sky printed on paper. Keep --bg in sync with PAPER
+   in st-shader.js, and the theme-color values in st-theme.js. */
+:root[data-theme="light"] {
+  --bg: #f1efe9;
+  --bg-rgb: 241, 239, 233;
+  --ink: #121215;
+  --ink-rgb: 18, 18, 21;
+  --ink-2: #4a4842;
+  --ink-3: #6b6963;
+  --hot: #ad4516;
+  --cold: #285aa8;
+  --select: rgba(173, 69, 22, .2);
+  --select-ink: var(--ink);
+  --scrollbar: #cbc8c0;
+  color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -28,7 +50,7 @@ html {
   background: var(--bg);
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: #2a2a31 transparent;
+  scrollbar-color: var(--scrollbar) transparent;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -56,8 +78,20 @@ html:not(.gl) body {
   background-size: 310px 310px, 270px 270px, 410px 410px, 190px 190px, 150px 150px, 100% 100%, auto;
   background-attachment: fixed;
 }
+html[data-theme="light"]:not(.gl) body {
+  background:
+    radial-gradient(1.2px 1.2px at 12% 18%, rgba(18, 18, 21, .5), transparent 70%),
+    radial-gradient(1px 1px at 68% 32%, rgba(30, 50, 110, .4), transparent 70%),
+    radial-gradient(1.4px 1.4px at 38% 74%, rgba(90, 50, 20, .4), transparent 70%),
+    radial-gradient(1px 1px at 86% 82%, rgba(18, 18, 21, .35), transparent 70%),
+    radial-gradient(1px 1px at 52% 52%, rgba(18, 18, 21, .25), transparent 70%),
+    radial-gradient(60% 50% at 75% 15%, rgba(110, 80, 190, .07), transparent 70%),
+    var(--bg);
+  background-size: 310px 310px, 270px 270px, 410px 410px, 190px 190px, 150px 150px, 100% 100%, auto;
+  background-attachment: fixed;
+}
 
-::selection { background: rgba(255, 178, 122, .32); color: #fff; }
+::selection { background: var(--select); color: var(--select-ink); }
 
 a { color: inherit; }
 
@@ -96,7 +130,7 @@ html:not(.gl) #spacetime { display: none; }
   display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
   padding: 22px var(--pad) 28px;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(5, 5, 7, .96) 0%, rgba(5, 5, 7, .96) calc(100% - 28px), rgba(5, 5, 7, 0) 100%);
+  background: linear-gradient(to bottom, rgba(var(--bg-rgb), .96) 0%, rgba(var(--bg-rgb), .96) calc(100% - 28px), rgba(var(--bg-rgb), 0) 100%);
 }
 .hud-top > * { pointer-events: auto; }
 
@@ -112,10 +146,14 @@ html:not(.gl) #spacetime { display: none; }
   box-shadow: 0 0 0 1px rgba(255, 210, 160, .95), 0 0 10px 2px rgba(255, 130, 70, .55), 0 0 26px 4px rgba(255, 110, 50, .18);
   transition: transform .5s cubic-bezier(.2, .8, .2, 1);
 }
+[data-theme="light"] .brand-mark {
+  box-shadow: 0 0 0 1px rgba(226, 112, 48, .95), 0 0 8px 2px rgba(255, 120, 50, .5), 0 0 22px 4px rgba(255, 110, 50, .2);
+}
 .brand:hover .brand-mark { transform: scale(1.35); }
 .brand-sub { color: var(--ink-3); letter-spacing: .1em; }
 
 .nav {
+  margin-left: auto;
   display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 26px;
   font: 400 12px/1 var(--mono); letter-spacing: .08em;
 }
@@ -137,6 +175,28 @@ html:not(.gl) #spacetime { display: none; }
 }
 .nav a[aria-current="page"]::after, .nav a:hover::after { transform: scaleX(1); }
 
+/* light / dark switch: a half-lit disc that turns over */
+.theme-toggle {
+  flex: none;
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px; margin: -3px -9px 0 -6px; padding: 0;
+  border: 0; background: none; cursor: pointer;
+  color: var(--ink-3);
+  transition: color .25s;
+}
+.theme-toggle:hover { color: var(--ink); }
+.theme-toggle i {
+  width: 13px; height: 13px; border-radius: 50%;
+  border: 1px solid currentColor;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+  transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+}
+[data-theme="light"] .theme-toggle i { transform: rotate(180deg); }
+html:not(.js) .theme-toggle { display: none; }
+
+/* the new theme spreads from the switch; st-theme.js drives the clip-path */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
 /* ---------- HUD (bottom) ---------- */
 .hud-bottom {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 5;
@@ -146,7 +206,7 @@ html:not(.gl) #spacetime { display: none; }
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(5, 5, 7, .82), rgba(5, 5, 7, 0));
+  background: linear-gradient(to top, rgba(var(--bg-rgb), .82), rgba(var(--bg-rgb), 0));
 }
 .hud-bottom b { font-weight: 400; color: var(--ink-2); }
 .hud-col { display: flex; flex-direction: column; gap: 2px; }
@@ -157,7 +217,7 @@ html:not(.gl) #spacetime { display: none; }
 /* Corner registration marks */
 .corners i {
   position: fixed; z-index: 4; width: 12px; height: 12px; pointer-events: none;
-  border-color: rgba(241, 239, 233, .3); border-style: solid; border-width: 0;
+  border-color: rgba(var(--ink-rgb), .3); border-style: solid; border-width: 0;
   transition: transform .6s cubic-bezier(.2, .8, .2, 1);
 }
 .corners i:nth-child(1) { top: 10px; left: 10px; border-top-width: 1px; border-left-width: 1px; }
@@ -180,6 +240,12 @@ html:not(.gl) #spacetime { display: none; }
   opacity: 0; pointer-events: none;
   transition: opacity .25s;
   text-shadow: 0 0 12px rgba(0, 0, 0, .9);
+}
+/* mid-warp the paper is gone, so the readout carries its own scrap of it */
+[data-theme="light"] .warp-hud {
+  padding: 9px 16px 8px; border-radius: 4px;
+  background: rgba(var(--bg-rgb), .9);
+  text-shadow: none;
 }
 .is-warping .warp-hud { opacity: 1; }
 .wh-status { color: var(--cold); }
@@ -230,7 +296,7 @@ html.intro.intro-done main { animation: none; }
 .prose a, .lede a, .p-text a {
   color: var(--ink);
   text-decoration: underline;
-  text-decoration-color: rgba(241, 239, 233, .35);
+  text-decoration-color: rgba(var(--ink-rgb), .35);
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
   transition: color .2s, text-decoration-color .2s;
@@ -263,7 +329,7 @@ kbd {
   display: inline-block; min-width: 20px; padding: 1px 5px; margin: 0 2px;
   border: 1px solid var(--line-2); border-radius: 4px;
   font: 400 10.5px/1.5 var(--mono); text-align: center;
-  color: var(--ink-2); background: rgba(241, 239, 233, .04);
+  color: var(--ink-2); background: rgba(var(--ink-rgb), .04);
 }
 
 /* home */
@@ -309,7 +375,7 @@ kbd {
 .p-links a:hover, .lab-go:hover { color: var(--hot); border-color: var(--hot); }
 .p-text code {
   padding: 1px 5px; border-radius: 4px;
-  background: rgba(241, 239, 233, .07);
+  background: rgba(var(--ink-rgb), .07);
   font: 400 .86em/1 var(--mono); color: var(--ink);
 }
 
@@ -373,7 +439,8 @@ html.is-warping { overflow: hidden; }
 @media (max-width: 640px) {
   body { font-size: 16px; }
   .hud-top { flex-direction: column; gap: 10px; padding-top: 16px; }
-  .nav { justify-content: flex-start; gap: 2px 18px; }
+  .nav { margin-left: 0; justify-content: flex-start; gap: 2px 18px; }
+  .theme-toggle { position: absolute; top: 13px; right: calc(var(--pad) - 9px); margin: 0; }
   main { padding-top: 132px; padding-bottom: 120px; }
   .hud-coords, .hud-clock { display: none; }
   .warp-hud { bottom: 64px; font-size: 10px; }

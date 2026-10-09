@@ -32,13 +32,19 @@ uniform sampler2D uTexA; // outgoing page (premultiplied)
 uniform sampler2D uTexB; // incoming page
 uniform float uHasA;
 uniform float uHasB;
+uniform float uLight;    // 0 dark theme | 1 light theme
 
 out vec4 outColor;
 
 #define PI  3.14159265359
 #define TAU 6.28318530718
 
+const vec3 PAPER = vec3(.945, .937, .914);   // light --bg (#f1efe9)
+const vec3 INK   = vec3(.071, .071, .082);   // light --ink (#121215)
+const vec3 GRID  = vec3(.32, .44, .74);      // graph-paper blue
+
 float gVig = 1.0;
+float gPaper = 0.;   // how much of the sky here is printed on paper (light theme)
 
 /* ---------- hashing & noise ---------- */
 float h11(float p){ p = fract(p * .1031); p *= p + 33.33; p *= p + p; return fract(p); }
@@ -83,18 +89,28 @@ float gridLine(vec2 p, float g){
 }
 
 vec3 space(vec2 p, float glow){
-  vec3 c = vec3(.010, .010, .017);
   vec2 q = p * .0010 + vec2(uTime * .003, -uScroll * .00004);
-  float n = fbm3(q);
-  float n2 = fbm3(q * 2.3 + 5.2);
-  c += vec3(.050, .026, .085) * smoothstep(.45, .88, n);
-  c += vec3(.000, .022, .040) * smoothstep(.52, .90, n2);
-  c += starLayer(p - vec2(0., uScroll * .05), 150., 1., .55, 1.0);
-  c += starLayer(p - vec2(0., uScroll * .12),  84., 2., .34, .78);
-  c += starLayer(p - vec2(0., uScroll * .22),  44., 3., .20, .52);
+  float n = smoothstep(.45, .88, fbm3(q));
+  float n2 = smoothstep(.52, .90, fbm3(q * 2.3 + 5.2));
+  vec3 st = starLayer(p - vec2(0., uScroll * .05), 150., 1., .55, 1.0)
+          + starLayer(p - vec2(0., uScroll * .12),  84., 2., .34, .78)
+          + starLayer(p - vec2(0., uScroll * .22),  44., 3., .20, .52);
   float gl = gridLine(p - vec2(0., uScroll * .30), 72.);
+
+  vec3 c = vec3(.010, .010, .017);
+  c += vec3(.050, .026, .085) * n;
+  c += vec3(.000, .022, .040) * n2;
+  c += st;
   c += vec3(.52, .60, .90) * gl * (.040 + glow);
-  return c * gVig;
+  c *= gVig;
+  if (gPaper <= 0.) return c;
+
+  // the same sky printed as a chart: nebulae as washes, stars in ink, graph-paper grid
+  vec3 l = PAPER * (1. - vec3(.030, .042, .008) * n) * (1. - vec3(.026, .010, .000) * n2);
+  l = mix(l, INK, clamp(dot(st, vec3(.3, .5, .2)) * .8, 0., .9));
+  l = mix(l, GRID, gl * (.055 + glow * 1.2));
+  l *= mix(1., gVig, .05);
+  return mix(c, l, gPaper);
 }
 
 /* gravitational waves from clicks */
@@ -123,8 +139,9 @@ vec3 idle(vec2 p){
   float near = exp(-r2 / (L * 9. + 1.)) * uMouseOn;
   vec3 c = space(src, .12 * near);
   float r = sqrt(r2);
-  c += vec3(.62, .72, 1.) * .055 * exp(-pow((r - rE) / 2.6, 2.)) * uMouseOn;
-  return c;
+  float ring = exp(-pow((r - rE) / 2.6, 2.)) * uMouseOn;
+  c += vec3(.62, .72, 1.) * .055 * ring * (1. - gPaper);
+  return mix(c, GRID, .16 * ring * gPaper);
 }
 
 /* ---------- content textures ---------- */
@@ -227,6 +244,11 @@ vec3 collapseCol(vec2 p, float T){
   vec2 ps = p + sh.xy;
   float rh = horizon(c, Rcov);
   vec2 d = ps - uP; float r = length(d) + 1e-3; vec2 n = d / r;
+  float ang = atan(d.y, d.x);
+  // light theme: the hole burns through the paper, a ragged scorch running ahead of the horizon
+  float rag = 1. + .16 * (pnoise(vec2((ang + PI) / TAU * 9., T * 1.5), 9.) - .5);
+  float burn = smoothstep(rh * 3.2 + 40., rh * 2.2 + 10., r * rag) * smoothstep(0., .2, c);
+  gPaper = uLight * (1. - burn);
   vec3 col;
 
   if (r < rh){
@@ -238,6 +260,7 @@ vec3 collapseCol(vec2 p, float T){
     vec2 beta = d - n * (L / r);
     float sw = uSpin * 3. * c * c * (rh + 120.) / (length(beta) + rh * .5 + 120.);
     vec3 bg = space(uP + rot(sw) * beta * (1. + .3 * c), .14 * c);
+    bg *= mix(vec3(1.), vec3(.80, .58, .36), uLight * burn * (1. - burn) * 3.);   // scorched paper browns before it goes
 
     // the page itself, with chronophotographic echoes (time-smeared trails)
     vec3 acc = vec3(0.), accA = vec3(0.); float ws = 0.;
@@ -249,8 +272,11 @@ vec3 collapseCol(vec2 p, float T){
       float ca = (1.5 * smoothstep(0., .1, c) + 30. * c * c) * (.35 + rk);
       vec4 sr = texA(sk + n * ca), sg = texA(sk), sb = texA(sk - n * ca);
       vec3 tint = mix(vec3(1.), vec3(1., .32, .12), rk) * (1. - .7 * rk);
-      acc  += vec3(sr.r, sg.g, sb.b) * tint * w;
-      accA += vec3(sr.a, sg.a, sb.a) * (1. - .55 * rk) * w;
+      vec3 cA = vec3(sr.r, sg.g, sb.b), aA = vec3(sr.a, sg.a, sb.a);
+      // dark ink can't redden into the dark, so on paper it heats up like an ember instead
+      vec3 heat = mix(cA, vec3(1., .42, .14) * aA * 1.2, rk);
+      acc  += mix(cA * tint, heat, uLight) * w;
+      accA += aA * (1. - .55 * rk) * w;
       ws += w;
     }
     acc /= ws; accA /= ws;
@@ -260,7 +286,6 @@ vec3 collapseCol(vec2 p, float T){
     float on = smoothstep(.03, .22, c);
     float dIn = rh * 1.12, dOut = rh * 2.9 + 50.;
     float band = smoothstep(dIn, dIn + 4. + rh * .1, r) * (1. - smoothstep(dIn + rh * .25, dOut, r));
-    float ang = atan(d.y, d.x);
     float sa = ang + uSpin * (T * 9. + 4. * c) * (rh + 60.) / (r + 60.);
     float dn = pfbm(vec2((sa + PI) / TAU * 16., log(r + 1.) * 7. - T * 3.), 16.);
     float beam = .62 + .38 * cos(ang - uSpin * 1.2);
@@ -271,7 +296,8 @@ vec3 collapseCol(vec2 p, float T){
     // photon ring
     col += vec3(1., .86, .7) * exp(-pow((r - rh * 1.03) / (1.2 + rh * .012), 2.)) * 1.5 * on;
   }
-  col += vec3(.72, .86, 1.) * sh.z * .6;
+  col += vec3(.72, .86, 1.) * sh.z * .6 * (1. - gPaper);
+  col *= 1. - vec3(.6, .5, .32) * sh.z * .7 * gPaper;   // on paper the fractures are drawn in pencil
   return col;
 }
 
@@ -305,9 +331,11 @@ vec3 emergeCol(vec2 p, float T){
     }
     acc /= ws; accA /= ws;
     col = bg * (1. - accA) + acc;
-    col += vec3(.55, .75, 1.) * shell * .22 * (1. - e);
+    // adding light to paper only clips to white: there the blue-shifted front is a cool wash instead
+    col += vec3(.55, .75, 1.) * shell * .22 * (1. - e) * (1. - gPaper);
+    col = mix(col, col * vec3(.84, .91, 1.), shell * (1. - e) * gPaper);
   }
-  float fl = pow(1. - e, 4.);
+  float fl = pow(1. - e, 4.) * (edge > 0. ? 1. : 1. - .75 * gPaper);
   col += vec3(.92, .95, 1.) * exp(-r * r / (2. * pow(40. + 500. * e, 2.))) * fl * 2.;
   return col;
 }
@@ -348,6 +376,7 @@ void main(){
   vec2 uv = gl_FragCoord.xy / uRes;
   vec2 vq = (uv - .5) * vec2(uView.x / uView.y, 1.);
   gVig = mix(.5, 1., smoothstep(1.25, .3, length(vq)));
+  gPaper = uLight;
   vec3 col = uWarp > .5 ? warp(p) : idle(p);
   col += (h21(gl_FragCoord.xy + fract(uTime * 7.) * 91.) - .5) / 255.;
   outColor = vec4(col, 1.);

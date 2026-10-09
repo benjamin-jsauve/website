@@ -11,10 +11,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="assets/css/site.css" />
-  <script>(function(d){var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.documentElement.className='js'+(r?' rm':' intro');})(document);</script>
+  <script>(function(d){var e=d.documentElement,m=window.matchMedia,r=m&&matchMedia('(prefers-reduced-motion: reduce)').matches,t;try{t=localStorage.getItem('st.theme');}catch(x){}if(t!=='light'&&t!=='dark')t=m&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';e.className='js'+(r?' rm':' intro');e.setAttribute('data-theme',t);})(document);</script>
   <script src="assets/js/st-shader.js" defer></script>
   <script src="assets/js/st-raster.js" defer></script>
   <script src="assets/js/st-engine.js" defer></script>
+  <script src="assets/js/st-theme.js" defer></script>
   <script src="assets/js/st-hud.js" defer></script>
   <script src="assets/js/st-main.js" defer></script>
 </head>
@@ -30,6 +31,7 @@
       <a href="projects.html"><span class="nav-idx">02</span><span class="nav-label">projects</span></a>
       <a href="contact.html"><span class="nav-idx">03</span><span class="nav-label">contact</span></a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Light theme" aria-pressed="false" title="Light / dark"><i aria-hidden="true"></i></button>
   </header>
 
   <main id="main" class="page page-about" data-idx="01" data-name="about">
@@ -39,20 +41,26 @@
       <div class="prose">
         <p>
           I study Mathematics and Computer Science at McGill in the Honours stream.
-          My academic focus is at the intersection of probability, optimization, and machine learning,
-          which maps pretty naturally onto the problems I find interesting in finance.
+          It wasn't long before I felt inspired by the problem solving process I would find in
+          a lot of my pure and applied mathematics courses. But math is kind of big. So I ended up taking
+          a class in a few different fields, notably advanced statistics, probability, functional analysis, 
+          abstract algebra, graph theory and even some game theory. While some of my computer science classes
+          weren't nearly as interesting and some we certainly outright boring at times, I did find my 
+          operating systems and algorithms classes rather engaging. And when you combine the two, things
+          can get really fun.
         </p>
         <p>
-          I spent time at my internships doing quantitative research and software development. Both gave me different angles on how research ideas
-          actually make it into production, which I think about a lot.
+          Beyond my studies, I have done a few internships in quantitative research at proprietary trading firms
+          and software development at big asset managers. I currently work as an applied research scientist at 
+          a quantitative hedge fund.
         </p>
         <p>
-          Before any of this, I worked as a professional chef in some of the better kitchens in Canada.
+          Before any of this, I worked as a professional chef in some of the better kitchens in Canada. Kitchens
+          are a lot of fun, but the industry feeds off passion and energy. It's not really a place to make a living
+          and cooking is more of a hobby than a passion, for me at least.
         </p>
         <p>
-          I train MMA and play hockey. I ski when I get the chance.
-          I read philosophy mostly for pleasure, Camus and Wittgenstein in particular.
-          I&rsquo;m serious about music in a way that&rsquo;s hard to explain briefly.
+          I love sports, especially hockey and mixed martial arts. I also love skiing, music, and philosophy.
         </p>
       </div>
 
