@@ -3,76 +3,180 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Benjamin — Home</title>
-  <meta name="description" content="Benjamin — Honours Mathematics & Computer Science at McGill. Systematic trading, signal research, high-frequency strategies." />
-  <meta name="theme-color" content="#050507" />
+  <title>Benjamin Sauvé</title>
+  <meta name="description" content="Benjamin Sauvé." />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" />
   <link rel="stylesheet" href="assets/css/site.css" />
-  <script>(function(d){var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.documentElement.className='js'+(r?' rm':' intro');})(document);</script>
-  <script src="assets/js/st-shader.js" defer></script>
-  <script src="assets/js/st-raster.js" defer></script>
-  <script src="assets/js/st-engine.js" defer></script>
-  <script src="assets/js/st-hud.js" defer></script>
-  <script src="assets/js/st-main.js" defer></script>
+  <script src="assets/js/banach-tarski.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <canvas id="spacetime" aria-hidden="true"></canvas>
 
-  <header class="hud-top">
-    <a class="brand" href="index.html" aria-label="Benjamin, home"><span class="brand-mark" aria-hidden="true"></span><span>Benjamin</span></a>
-    <nav class="nav" aria-label="Primary">
-      <a href="index.html" aria-current="page"><span class="nav-idx">00</span><span class="nav-label">home</span></a>
-      <a href="about.html"><span class="nav-idx">01</span><span class="nav-label">about</span></a>
-      <a href="projects.html"><span class="nav-idx">02</span><span class="nav-label">projects</span></a>
-      <a href="contact.html"><span class="nav-idx">03</span><span class="nav-label">contact</span></a>
+  <header class="top wrap">
+    <a class="brand" href="./"><span class="brand-dots" aria-hidden="true"><i></i><i></i><i></i></span>Benjamin Sauvé</a>
+    <nav class="links" aria-label="Elsewhere">
+      <a href="#projects">projects</a>
+      <a href="https://github.com/benjamin-jsauve">github</a>
+      <a href="https://www.linkedin.com/in/benjamin-sauv%C3%A9-8a37502b9/">linkedin</a>
+      <a href="mailto:benjamin.jsauve@gmail.com">email</a>
     </nav>
   </header>
 
-  <main id="main" class="page page-home" data-idx="00" data-name="home">
-    <p class="eyebrow"><span class="ev">Event 00</span><span>Origin</span><span>45.5048° N, 73.5772° W</span></p>
-    <h1 class="display" tabindex="-1"><span class="line">Hi, I&rsquo;m</span> <span class="line"><em>Benjamin</em><span class="dot">.</span></span></h1>
-    <div class="lede">
-      <p>
-        I&rsquo;m a third-year Honours Mathematics and Computer Science student at McGill,
-        working toward a career in solving cool problems. My current focus is on systematic
-        trading and signal research, with a particular interest in high-frequency strategies.
-        I&rsquo;ve done research at proprietary trading firms and software development at big asset managers.
-      </p>
-      <p>
-        When I&rsquo;m not coding or reading about finance, you can find me training for MMA competitions or on the hockey rink.
-      </p>
+  <main id="main">
+    <!-- The animation fills this section. Elements with class="veil" get a soft white haze
+         behind them, and the animation won't start a split underneath them. -->
+    <section class="hero">
+      <canvas id="stage" aria-hidden="true"></canvas>
+      <div class="hero-copy wrap">
+        <h1 class="veil"><span class="role">Applied Research Scientist</span> <span class="sep">|</span> <span class="role">Software Engineer</span></h1>
+        <div class="lede veil">
+          <p>
+            I study Mathematics and Computer Science at McGill in the Honours stream. It wasn't long before I felt inspired by the problem solving process I would find in a lot of my pure and applied mathematics courses. But math is kind of big. So I ended up taking a class in a few different fields, notably advanced statistics, probability, functional analysis, abstract algebra, graph theory and even some game theory. While some of my computer science classes weren't nearly as interesting and some we certainly outright boring at times, I did find my operating systems and algorithms classes rather engaging. And when you combine the two, things can get really fun.  
+          </p>
+          <p>
+            Beyond my studies, I have done a few internships in quantitative research at proprietary trading firms and software development at big asset managers. I currently work as an applied research scientist at a quantitative hedge fund.
+          </p>  
+          </p>
+          <p>
+            Before any of this, I worked as a professional chef in some of the better kitchens in Canada. Kitchens are a lot of fun, but the industry feeds off passion and energy. It's not really a place to make a living and cooking is more of a hobby than a passion, for me at least.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <section id="projects" class="section" aria-labelledby="projects-h">
+        <div class="section-head">
+          <h2 id="projects-h">Projects</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="count">04</span>
+        </div>
+
+        <!-- To add a project, copy one <li class="card"> block. Card colours cycle red, green, blue. -->
+        <ol class="grid">
+          <li class="card">
+            <div class="card-top"><span class="idx"><i class="dot"></i>01</span><span class="status">research</span></div>
+            <h3>Peer Cluster Residual Momentum</h3>
+            <p class="meta">Portfolio Optimization · Russell 1000, 2005–2024</p>
+            <p class="desc">
+              Tests whether idiosyncratic momentum is sharper within data-driven peer groups. The
+              pipeline residualises returns on the Fama–French five factors, cleans the covariance
+              with Marchenko–Pastur, clusters stocks with Ward linkage, and trades the within-cluster
+              signal through a Gârleanu–Pedersen optimiser with transaction costs. An optional
+              random-forest meta-labeling layer learns when to size the bet up or down.
+            </p>
+            <dl class="stack">
+              <div><dt>lang</dt><dd><ul class="chips"><li>Python</li></ul></dd></div>
+              <div><dt>libs</dt><dd><ul class="chips"><li>NumPy</li><li>pandas</li><li>SciPy</li><li>statsmodels</li><li>scikit-learn</li><li>CVXPY</li><li>MLflow</li></ul></dd></div>
+            </dl>
+            <p class="card-links">
+              <a href="https://github.com/benjamin-jsauve/peer_cluster">github ↗</a>
+              <a href="https://github.com/benjamin-jsauve/peer_cluster/blob/main/reports/beamer/research.pdf">research deck ↗</a>
+            </p>
+          </li>
+
+          <li class="card">
+            <div class="card-top"><span class="idx"><i class="dot"></i>02</span><span class="status">merged</span></div>
+            <h3>Multi-quantile loss for EvoTrees.jl</h3>
+            <p class="meta">Open source · Gradient-boosted trees</p>
+            <p class="desc">
+              Added a <code>:multiquantile</code> loss to EvoTrees.jl, a gradient-boosted trees
+              library in Julia, so a single <code>EvoTreeRegressor</code> predicts several quantiles
+              at once. Leaf values use exact residual quantiles, split gain is summed across the
+              K outputs, and each quantile gets its own bias initialisation. Runs on CPU and GPU.
+            </p>
+            <dl class="stack">
+              <div><dt>lang</dt><dd><ul class="chips"><li>Julia</li></ul></dd></div>
+              <div><dt>libs</dt><dd><ul class="chips"><li>EvoTrees.jl</li><li>CUDA.jl</li></ul></dd></div>
+            </dl>
+            <p class="card-links">
+              <a href="https://github.com/Evovest/EvoTrees.jl/pull/327">pull request #327 ↗</a>
+            </p>
+          </li>
+
+          <li class="card">
+            <div class="card-top"><span class="idx"><i class="dot"></i>03</span><span class="status">early</span></div>
+            <h3>SyTools</h3>
+            <p class="meta">Library · Systematic asset management</p>
+            <p class="desc">
+              A Python toolkit for systematic asset management: statistics, time series, portfolio
+              construction, backtesting, and execution through the Interactive Brokers API.
+              Strictly typed and tested, with CI from the first commit.
+            </p>
+            <dl class="stack">
+              <div><dt>lang</dt><dd><ul class="chips"><li>Python</li></ul></dd></div>
+              <div><dt>libs</dt><dd><ul class="chips"><li>NumPy</li><li>pandas</li><li>SciPy</li><li>CVXPY</li><li>ibapi</li></ul></dd></div>
+            </dl>
+            <p class="card-links">
+              <a href="https://github.com/benjamin-jsauve/SyTools">github ↗</a>
+            </p>
+          </li>
+
+          <li class="card">
+            <div class="card-top"><span class="idx"><i class="dot"></i>04</span><span class="status">live</span></div>
+            <h3>This website</h3>
+            <p class="meta">Web · Generative animation</p>
+            <p class="desc">
+              The animation behind the intro is Banach–Tarski in plain Canvas 2D: each ball is cut into 18
+              pieces that are moved and reassembled into two balls of the same size. The real
+              theorem needs non-measurable pieces so we're actually just cheating. 
+            </p>
+            <dl class="stack">
+              <div><dt>lang</dt><dd><ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul></dd></div>
+              <div><dt>libs</dt><dd><ul class="chips"><li>Canvas 2D API</li></ul></dd></div>
+            </dl>
+            <p class="card-links">
+              <a href="https://github.com/benjamin-jsauve/website">source ↗</a>
+            </p>
+          </li>
+
+          <!-- TODO mktscanner: fill in the stack, uncomment, and bump the count above to 05.
+          <li class="card">
+            <div class="card-top"><span class="idx"><i class="dot"></i>05</span><span class="status">early</span></div>
+            <h3>mktscanner</h3>
+            <p class="meta">Tool · Market scanning</p>
+            <p class="desc">Market scanner.</p>
+            <dl class="stack">
+              <div><dt>lang</dt><dd><ul class="chips"><li>…</li></ul></dd></div>
+              <div><dt>libs</dt><dd><ul class="chips"><li>…</li></ul></dd></div>
+            </dl>
+            <p class="card-links">
+              <a href="https://github.com/benjamin-jsauve/mktscanner">github ↗</a>
+            </p>
+          </li>
+          -->
+
+          <li class="card card-more">
+            <a href="https://github.com/benjamin-jsauve">
+              <span class="brand-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="more-k">More on GitHub ↗</span>
+              <span class="more-v">github.com/benjamin-jsauve</span>
+            </a>
+          </li>
+        </ol>
+      </section>
+
+      <section id="contact" class="section" aria-labelledby="contact-h">
+        <div class="section-head">
+          <h2 id="contact-h">Contact</h2>
+          <span class="rule" aria-hidden="true"></span>
+        </div>
+        <ul class="channels">
+          <li><a href="mailto:benjamin.jsauve@gmail.com"><span class="ch-k">email</span><span class="ch-v">benjamin.jsauve@gmail.com</span><span class="ch-go" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://github.com/benjamin-jsauve"><span class="ch-k">github</span><span class="ch-v">github.com/benjamin-jsauve</span><span class="ch-go" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.linkedin.com/in/benjamin-sauv%C3%A9-8a37502b9/"><span class="ch-k">linkedin</span><span class="ch-v">linkedin.com/in/benjamin-sauvé</span><span class="ch-go" aria-hidden="true">↗</span></a></li>
+        </ul>
+      </section>
     </div>
-    <ul class="tags" aria-label="Current focus">
-      <li>systematic trading</li>
-      <li>signal research</li>
-      <li>high-frequency strategies</li>
-    </ul>
-    <p class="hint"><span class="hint-keys">Press <kbd>1</kbd>&ndash;<kbd>4</kbd> to jump &middot; </span>the back button rewinds time</p>
   </main>
 
-  <footer class="hud-bottom">
-    <div class="hud-col">
-      <span class="hud-coords"><span class="hud-k">x</span><b data-hud="x">0.000</b>&nbsp;&nbsp;<span class="hud-k">y</span><b data-hud="y">0.000</b></span>
-      <span><span class="hud-k m">τ − t</span><b class="m" data-hud="dil">0.000 s</b></span>
-    </div>
-    <div class="hud-col right">
-      <span class="hud-clock"><span class="hud-k">Montréal</span><b data-hud="clock">--:--:--</b></span>
-      <span>&copy; <span data-hud="year">2026</span> Benjamin</span>
-    </div>
+  <footer class="foot wrap">
+    <span>&copy; 2026 Benjamin Sauvé</span>
+    <span>Montréal, QC</span>
   </footer>
-
-  <div class="corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-
-  <div class="warp-hud" aria-hidden="true">
-    <div class="wh-status" data-hud="status">Traversing</div>
-    <div class="wh-route"><span data-hud="from">00 home</span> &nbsp;⟶&nbsp; <span data-hud="to">01 about</span></div>
-    <div class="wh-metrics">v <b data-hud="v">0.00000</b>c &nbsp;·&nbsp; γ <b data-hud="g">1.000</b></div>
-  </div>
-
-  <div class="sr-only" aria-live="polite" id="announcer"></div>
 </body>
 </html>
